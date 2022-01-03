@@ -40,6 +40,8 @@ class BasicDataset(Dataset):
 
         if not is_mask:
             img_ndarray = img_ndarray / 255
+        else:
+            img_ndarray = np.fromiter((1 if i !=0 else 0 for i in img_ndarray), dtype = img_ndarray.dtype)
 
         return img_ndarray
 
