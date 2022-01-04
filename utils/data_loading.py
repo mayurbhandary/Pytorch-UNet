@@ -43,8 +43,8 @@ class BasicDataset(Dataset):
         else:
             for r in range(img_ndarray.shape[0]):
                 for c in range(img_ndarray.shape[1]):
-                    if img_ndarray[r,c] > 1:
-                        img_ndarray = 1
+                    if img_ndarray[r,c] > 1: 
+                        img_ndarray[r,c] = 1
 
         return img_ndarray
 
@@ -70,10 +70,10 @@ class BasicDataset(Dataset):
 
         assert img.size == mask.size, \
             'Image and mask {name} should be the same size, but are {img.size} and {mask.size}'
-
+        
         img = self.preprocess(img, self.scale, is_mask=False)
         mask = self.preprocess(mask, self.scale, is_mask=True)
-
+        
         return {
             'image': torch.as_tensor(img.copy()).float().contiguous(),
             'mask': torch.as_tensor(mask.copy()).long().contiguous()
