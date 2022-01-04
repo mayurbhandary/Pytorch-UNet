@@ -41,10 +41,12 @@ class BasicDataset(Dataset):
         if not is_mask:
             img_ndarray = img_ndarray / 255
         else:
+            new = np.zeros(img_ndarray.shape)
             for r in range(img_ndarray.shape[0]):
                 for c in range(img_ndarray.shape[1]):
                     if img_ndarray[r,c] > 1: 
-                        img_ndarray[r,c] = 1
+                        new[r,c] = 1
+            img_ndarray = new
 
         return img_ndarray
 
