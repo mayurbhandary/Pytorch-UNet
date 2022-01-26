@@ -11,7 +11,7 @@ images_cells_dir  = './data/imgs_cells'
 masks_cells_dir  = './data/masks_cells'
 mask_ids = [splitext(file)[0][7:10] for file in listdir(masks_cells_dir) if not file.startswith('.')]
 
-original = False #toggle preprocessing
+original = True #toggle preprocessing
 
 # moves and renames mask and image files
 for file in listdir(images_cells_dir):

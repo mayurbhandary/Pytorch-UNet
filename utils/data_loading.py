@@ -30,7 +30,8 @@ class BasicDataset(Dataset):
         w, h = pil_img.size
         newW, newH = int(scale * w), int(scale * h)
         assert newW > 0 and newH > 0, 'Scale is too small, resized images would have no pixel'
-        pil_img = pil_img.resize((newW, newH), resample=Image.NEAREST if is_mask else Image.BICUBIC)
+        # Assume resizing is not required. 
+        # pil_img = pil_img.resize((newW, newH), resample=Image.NEAREST if is_mask else Image.BICUBIC) 
         img_ndarray = np.asarray(pil_img)
 
         if img_ndarray.ndim == 2 and not is_mask:
@@ -38,8 +39,14 @@ class BasicDataset(Dataset):
         elif not is_mask:
             img_ndarray = img_ndarray.transpose((2, 0, 1))
 
+        # Normalize input image 
         if not is_mask:
-            img_ndarray = img_ndarray / 255
+            if pil_img.mode == 'I;16':
+                img_ndarray = img_ndarray / 65535
+            
+            if pil_img.mode == 'L':
+                img_ndarray = img_ndarray / 255
+
         else:
             new = np.zeros(img_ndarray.shape)
             for r in range(img_ndarray.shape[0]):
