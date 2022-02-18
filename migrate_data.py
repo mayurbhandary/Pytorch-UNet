@@ -32,7 +32,7 @@ for file in listdir(masks_cells_dir):
             shutil.copy(masks_cells_dir+'/'+file, dest)
         else:
             im = Image.open(masks_cells_dir+'/'+file)
-            im = im.convert('L')
+            im = im.convert('L') #required if resizing is enabled in preprocessing (see data_loading.py) 
             im.save(dest)
 
 
