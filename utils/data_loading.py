@@ -46,7 +46,7 @@ class BasicDataset(Dataset):
             
             if pil_img.mode == 'L':
                 img_ndarray = img_ndarray / 255
-
+        # force masks to have 0 or 1 pixel values
         else:
             new = np.zeros(img_ndarray.shape)
             for r in range(img_ndarray.shape[0]):
